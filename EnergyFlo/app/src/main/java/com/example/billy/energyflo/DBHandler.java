@@ -15,13 +15,13 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "energyflowdb";
     //tables
     private static final String TABLE_LOG = "Log";
-    private static final String TABLE_MON = "Monday";
-    private static final String TABLE_TUE = "Tuesday";
-    private static final String TABLE_WED = "Wednesday";
-    private static final String TABLE_THU = "Thursday";
-    private static final String TABLE_FRI = "Friday";
-    private static final String TABLE_SAT = "Saturday";
-    private static final String TABLE_SUN = "Sunday";
+//    private static final String TABLE_MON = "Monday";
+//    private static final String TABLE_TUE = "Tuesday";
+//    private static final String TABLE_WED = "Wednesday";
+//    private static final String TABLE_THU = "Thursday";
+//    private static final String TABLE_FRI = "Friday";
+//    private static final String TABLE_SAT = "Saturday";
+//    private static final String TABLE_SUN = "Sunday";
     // Shops Table Columns names
     private static final String KEY_HR = "Hour";
     private static final String KEY_AVG = "Average";
@@ -41,5 +41,8 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOG);
+// Creating tables again
+        onCreate(db);
     }
 }
