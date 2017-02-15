@@ -26,6 +26,7 @@
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold"
         android:format12Hour="h a"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp" />
 </RelativeLayout>

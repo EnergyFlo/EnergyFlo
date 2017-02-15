@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-        float x = drawingImageView.getX() + drawingImageView.getWidth()  / 2;
-        float y = drawingImageView.getY() + drawingImageView.getHeight() / 2;
+        float x = 100;
+        float y = 100;
         float radius = 100;
         canvas.drawCircle(x, y, radius, paint);
+
     }
 
 
