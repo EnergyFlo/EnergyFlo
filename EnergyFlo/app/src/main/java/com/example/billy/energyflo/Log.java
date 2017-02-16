@@ -6,13 +6,13 @@ package com.example.billy.energyflo;
 
 public class Log {
     private int hour;
-    private Float average;
+    private double average;
     private int number_of_ratings;
     private int total;
     public Log()
     {
     }
-    public Log(int hour,Float average,int number_of_ratings, int total)
+    public Log(int hour,double average,int number_of_ratings, int total)
     {
         this.hour=hour;
         this.average=average;
@@ -32,12 +32,14 @@ public class Log {
     public int getHour() {
         return this.hour;
     }
-    public Float getAverage() {
+    public double getAverage() {
         return this.average;
     }
     public int getNumber_of_ratings() {
         return this.number_of_ratings;
     }
     public int getTotal(){ return this.total; }
+
+
 }
 
