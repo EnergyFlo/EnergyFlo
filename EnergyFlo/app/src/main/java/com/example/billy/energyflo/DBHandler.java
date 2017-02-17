@@ -74,7 +74,15 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_TOTAL,log.getTotal());
 
 // Inserting Row
-        db.insert(TABLE_LOG, null, values);
+        try{
+
+            long insert = db.insert(TABLE_LOG, null, values);
+            android.util.Log.v("!!!!!!!!!!!", "insert = "+insert);
+        }
+        catch(Exception e){
+            android.util.Log.v("Entry Exists", "This is good");
+        }
+
         db.close(); // Closing database connection
 
     }
