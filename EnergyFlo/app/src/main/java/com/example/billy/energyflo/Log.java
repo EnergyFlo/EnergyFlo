@@ -12,6 +12,7 @@ public class Log {
     public Log()
     {
     }
+
     public Log(int hour,double average,int number_of_ratings, int total)
     {
         this.hour=hour;
@@ -39,6 +40,13 @@ public class Log {
         return this.number_of_ratings;
     }
     public int getTotal(){ return this.total; }
+    public void updateLog(int rating){
+        //method updates the log that was grabbed from the database
+        //NOTE this does not update the database!
+        this.total += rating;
+        this.number_of_ratings++;
+        this.average = this.total/this.number_of_ratings;
+    }
 
 
 }

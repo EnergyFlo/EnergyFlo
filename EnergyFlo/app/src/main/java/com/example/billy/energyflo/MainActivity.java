@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextClock;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,31 +47,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void addItem(View view){
         //TODO query db, check if value exits, if yes update, if no create
-        //Calendar rightNow = Calendar.getInstance();
-        //int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         CharSequence now = time.getText();
         //TODO raise API to accomodate this function
         //time.getFormat24Hour();
         CharSequence amPm = now.subSequence(6,8);
         CharSequence current_time = now.subSequence(0,2);
+        int number_time = Integer.parseInt(current_time.toString());
+        int number_rating = 5;
 
         if((amPm.toString().equals("PM") && !current_time.toString().equals("12")) || ((amPm.toString().equals("AM") && current_time.toString().equals("12")))){
 
-            int number = Integer.parseInt(current_time.toString());
-            number += 12;
-            android.util.Log.v("TRUE", "IT IS NIGHTTIME add 12 = "+number);
+            //number = Integer.parseInt(current_time.toString());
+            number_time += 12;
+            //android.util.Log.v("TRUE", "IT IS NIGHTTIME add 12 = "+number_time);
         }
-//        android.util.Log.v("!!!!!!!!!!!", amPm.toString() + current_time.toString());
-//        int number = Integer.parseInt(current_time.toString());
-//        number += 12;
-//        android.util.Log.v("!!!!!!!!!!!", "IT IS NIGHTTIME add 12 "+number);
 
-        Log log = new Log(12,0,1,1);
+
         try{
-            mDbHelper.addHour(log);
+            Log current_log = mDbHelper.getLog(number_time);
+            //TODO edit log to add new params and update
+            current_log.updateLog(number_rating);
+            mDbHelper.updateHour(current_log);
+            android.util.Log.v("Success", "updated hour " + current_log.getHour() +"Average = "+ current_log.getAverage() +
+                    "Number of ratings = "+current_log.getNumber_of_ratings() +"Total = " + current_log.getTotal());
+
         }
         catch(Exception e){
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG);
+            android.util.Log.v("Exception", "Adding value " + number_time);
+            Log log = new Log(number_time,number_rating,1,number_rating);
+            mDbHelper.addHour(log);
+            return;
         }
+        //android.util.Log.v("BAD", "Added value but didn't return");
+
     }
 }

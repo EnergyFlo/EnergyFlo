@@ -2,6 +2,7 @@ package com.example.billy.energyflo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -86,19 +87,43 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
 
     }
-//    // Getting a row
-//    public Log getLog(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(TABLE_LOG, new String[] { KEY_HR,
-//                        KEY_AVG, KEY_NUM_OF_RATINGS,KEY_TOTAL}, KEY_HR + "=?",
-//                new String[] { String.valueOf(id) }, null, null, null, null);
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//        Log contact = new Log(Integer.parseInt(cursor.getInt(0)),
-//                cursor.getString(1), cursor.getString(2));
-//// return shop
-//        return contact;
-//    }
+    // Getting a row
+    public Log getLog(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_LOG, new String[] { KEY_HR,
+                        KEY_AVG, KEY_NUM_OF_RATINGS,KEY_TOTAL}, KEY_HR + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        Log current = new Log(Integer.parseInt(cursor.getString(0)),
+                Double.parseDouble(cursor.getString(1)), Integer.parseInt(cursor.getString(2)),
+                Integer.parseInt(cursor.getString(3)));
+// return shop
+        return current;
+    }
+    //update database
+    public void updateHour(Log log) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_HR, log.getHour());
+        values.put(KEY_AVG, log.getAverage());
+        values.put(KEY_NUM_OF_RATINGS, log.getNumber_of_ratings());
+        values.put(KEY_TOTAL,log.getTotal());
+
+// Inserting Row
+        try{
+
+            long insert = db.update(TABLE_LOG, values, KEY_HR + " = ?",
+            new String[]{String.valueOf(log.getHour())});
+            android.util.Log.v("Update", "hour updated = "+ log.getHour());
+        }
+        catch(Exception e){
+            android.util.Log.v("Entry Exists", "This is good");
+        }
+
+        db.close(); // Closing database connection
+
+    }
 
 
 
