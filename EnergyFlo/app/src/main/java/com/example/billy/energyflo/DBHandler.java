@@ -24,7 +24,7 @@ public class DBHandler extends SQLiteOpenHelper {
 //    private static final String TABLE_FRI = "Friday";
 //    private static final String TABLE_SAT = "Saturday";
 //    private static final String TABLE_SUN = "Sunday";
-    // Shops Table Columns names
+    // Table Column names
     private static final String KEY_HR = "Hour";
     private static final String KEY_AVG = "Average";
     private static final String KEY_NUM_OF_RATINGS = "Number_Of_Ratings";
@@ -38,8 +38,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
+
     private static DBHandler mInstance = null;
 
     public static DBHandler getInstance(Context activityContext) {
