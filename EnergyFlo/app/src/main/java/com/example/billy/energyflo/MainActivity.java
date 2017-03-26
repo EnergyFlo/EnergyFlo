@@ -1,14 +1,12 @@
 package com.example.billy.energyflo;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextClock;
 
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             //TODO edit log to add new params and update
             current_log.updateLog(number_rating);
             mDbHelper.updateHour(current_log);
-            android.util.Log.d("Success", "updated hour " + current_log.getHour() +"Average = "+ current_log.getAverage() + "Number of ratings = "+current_log.getNumber_of_ratings() +"Total = " + current_log.getTotal());
+            android.util.Log.d("Success", "updated hour " + current_log.getHour() +" Average = "+ current_log.getAverage() + " Number of ratings = "+current_log.getNumber_of_ratings() +" Total = " + current_log.getTotal());
 
         }
         catch(Exception e){
@@ -104,5 +102,21 @@ public class MainActivity extends AppCompatActivity {
 
         //android.util.Log.d("BAD", "Added value but didn't return");
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainactivitymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.gotoStats){
+            Intent intentToViewStats = new Intent(this, StatsActivity.class);
+            startActivity(intentToViewStats);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

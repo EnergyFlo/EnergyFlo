@@ -17,13 +17,6 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "energyflowdb";
     //tables
     private static final String TABLE_LOG = "Log";
-//    private static final String TABLE_MON = "Monday";
-//    private static final String TABLE_TUE = "Tuesday";
-//    private static final String TABLE_WED = "Wednesday";
-//    private static final String TABLE_THU = "Thursday";
-//    private static final String TABLE_FRI = "Friday";
-//    private static final String TABLE_SAT = "Saturday";
-//    private static final String TABLE_SUN = "Sunday";
     // Table Column names
     private static final String KEY_HR = "Hour";
     private static final String KEY_AVG = "Average";
@@ -98,7 +91,7 @@ public class DBHandler extends SQLiteOpenHelper {
         Log current = new Log(Integer.parseInt(cursor.getString(0)),
                 Double.parseDouble(cursor.getString(1)), Integer.parseInt(cursor.getString(2)),
                 Integer.parseInt(cursor.getString(3)));
-// return shop
+// return log
         return current;
     }
     //update database
