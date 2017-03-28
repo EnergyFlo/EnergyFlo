@@ -18,10 +18,9 @@
         app:title="energyflo"
         app:titleTextColor="?attr/colorAccent" />
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_below="@+id/statsToolbar"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/graph" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
