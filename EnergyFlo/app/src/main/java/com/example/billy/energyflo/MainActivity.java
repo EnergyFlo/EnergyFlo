@@ -1,12 +1,18 @@
 package com.example.billy.energyflo;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextClock;
 
@@ -16,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
     DBHandler mDbHelper;
     TextClock time;
     SeekBar ratingSelector;
+    DrawerLayout mDrawerLayout;
+    ListView mDrawerList;
+    ActionBarDrawerToggle mDrawerToggle;
 
+
+    DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,25 +40,66 @@ public class MainActivity extends AppCompatActivity {
         mDbHelper = new DBHandler(this.getApplicationContext());
         time = (TextClock) findViewById(R.id.textClock);
         ratingSelector = (SeekBar) findViewById(R.id.seekBar);
+        drawer = (DrawerLayout) findViewById(R.id.nav_view);
+        //setting drawer and list for drawer content
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-//        drawingImageView = (ImageView) this.findViewById(R.id.DrawingImageView);
-//        Bitmap bitmap = Bitmap.createBitmap((int) getWindowManager()
-//                .getDefaultDisplay().getWidth(), (int) getWindowManager()
-//                .getDefaultDisplay().getHeight(), Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bitmap);
-//        drawingImageView.setImageBitmap(bitmap);
+        // Set the adapter for the list view
+        //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+        //        R.layout.drawer_list_item, mPlanetTitles));
+        // Set the list's click listener
+        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
 
-        // Circle
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("EnergyFlo Settings");
+                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
 
-//        Paint paint = new Paint();
-//        paint.setColor(Color.WHITE);
-//        paint.setStyle(Paint.Style.STROKE);
-//        float x = 100;
-//        float y = 100;
-//        float radius = 100;
-//        canvas.drawCircle(x, y, radius, paint);
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("EnergyFlo Settings");
+                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+
 
     }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    /* Called whenever we call invalidateOptionsMenu() */
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        // If the nav drawer is open, hide action items related to the content view
+//        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLayout);
+//        menu.findItem(R.id.drawer_layout).setVisible(!drawerOpen);
+//        return super.onPrepareOptionsMenu(menu);
+//    }
+
 
     public void addItem(View view){
 
@@ -117,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentToViewStats);
             return true;
         }
+        if (item.getItemId() == R.id.drawer_menu) {
+            //mDrawerLayout.openDrawer(Gravity.LEFT);
+            return true;
+
+        }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
