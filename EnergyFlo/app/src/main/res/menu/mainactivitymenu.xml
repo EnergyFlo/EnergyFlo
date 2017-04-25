@@ -7,6 +7,10 @@
         android:id="@+id/gotoStats"
         android:title="Stats"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/gotoSettings"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
     <!--<item-->
         <!--android:id="@+id/drawer_menu"-->
         <!--android:title="nav"-->

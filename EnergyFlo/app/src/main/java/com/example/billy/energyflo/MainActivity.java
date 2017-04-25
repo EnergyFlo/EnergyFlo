@@ -172,6 +172,12 @@ public class MainActivity extends AppCompatActivity {
 //            return true;
 //
 //        }
+        if (item.getItemId() == R.id.gotoSettings) {
+            Intent intentToViewSettings = new Intent(this, SettingsActivity.class);
+            startActivity(intentToViewSettings);
+            return true;
+
+        }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
