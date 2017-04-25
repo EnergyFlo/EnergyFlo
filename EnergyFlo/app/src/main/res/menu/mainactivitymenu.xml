@@ -7,8 +7,8 @@
         android:id="@+id/gotoStats"
         android:title="Stats"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/drawer_menu"
-        android:title="nav"
-        app:showAsAction="ifRoom" />
+    <!--<item-->
+        <!--android:id="@+id/drawer_menu"-->
+        <!--android:title="nav"-->
+        <!--app:showAsAction="ifRoom" />-->
 </menu>

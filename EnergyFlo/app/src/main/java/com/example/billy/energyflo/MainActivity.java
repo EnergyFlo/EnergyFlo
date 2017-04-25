@@ -167,11 +167,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentToViewStats);
             return true;
         }
-        if (item.getItemId() == R.id.drawer_menu) {
-            //mDrawerLayout.openDrawer(Gravity.LEFT);
-            return true;
-
-        }
+//        if (item.getItemId() == R.id.drawer_menu) {
+//            //mDrawerLayout.openDrawer(Gravity.LEFT);
+//            return true;
+//
+//        }
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
