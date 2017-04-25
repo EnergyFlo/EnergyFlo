@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -40,8 +42,13 @@ public class StatsActivity extends AppCompatActivity {
         */
 
         //Initialize a chart
+
         LineChart chart = (LineChart) findViewById(R.id.chart);
         chart.setBackgroundColor(Color.rgb(51, 51, 51));
+        Description des= chart.getDescription();
+        des.setEnabled(false);
+        Legend leg=chart.getLegend();
+        leg.setEnabled(false);
         chart.setDrawGridBackground(false); //no grid line on background
 
         //format X-axis
