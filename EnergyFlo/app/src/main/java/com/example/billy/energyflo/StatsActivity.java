@@ -57,7 +57,7 @@ public class StatsActivity extends AppCompatActivity {
         yAxis.setTextSize(20f);
         yAxis.setTextColor(Color.rgb(255, 255, 255));
         yAxis.setAxisMinValue(0);
-        yAxis.setAxisMaximum(21);
+        yAxis.setAxisMaximum(11);
         chart.getAxisRight().setEnabled(false);
 
         //Initialize a List of Entries to store all the data points
