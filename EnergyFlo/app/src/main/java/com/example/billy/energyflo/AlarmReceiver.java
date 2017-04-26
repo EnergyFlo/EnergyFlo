@@ -16,11 +16,7 @@ public class AlarmReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        // TODO Auto-generated method stub
-
-
         // here you can start an activity or service depending on your need
-        // for ex you can start an activity to vibrate phone or to ring the phone
 
         Notification.Builder myBuilder = new Notification.Builder(context)
                 .setContentTitle("Reminder")
