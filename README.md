@@ -1,6 +1,8 @@
 # EnergyFlo
 Cleveland State University
+
 CIS 470 Final Project
+
 Spring 2017
 
 ## Idea:
