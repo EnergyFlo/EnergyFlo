@@ -117,6 +117,13 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
 
     }
+    public void findPeakHour(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(average),Hour FROM log", null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        android.util.Log.v("Highest Entry", String.valueOf(Double.parseDouble(cursor.getString(0)))+ " " + String.valueOf(Integer.parseInt(cursor.getString(1))));
+    }
 
 
 

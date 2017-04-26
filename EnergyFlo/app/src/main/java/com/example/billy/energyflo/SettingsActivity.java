@@ -39,9 +39,12 @@ public class SettingsActivity extends AppCompatActivity
 
     public void scheduleAlarm()
     {
+        DBHandler h = new DBHandler(this);
+        h.findPeakHour();
         // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
         // we fetch  the current time in milliseconds and added 1 day time
         // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
+        //setting alarmTime for 2 seconds in future (but it actually waits 4 seconds)
 //        Long alarmTime = new GregorianCalendar().getTimeInMillis()+2000;
 
         Calendar calendar = Calendar.getInstance();
@@ -58,13 +61,15 @@ public class SettingsActivity extends AppCompatActivity
         // create the object
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        //set the alarm for particular time
+        //set the alarm for particular time (alarmTime)
 //        alarmManager.set(AlarmManager.RTC_WAKEUP,alarmTime, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
 //        Toast.makeText(this, "Reminder Scheduled", Toast.LENGTH_LONG).show();
 
 
 // With setInexactRepeating(), you have to use one of the AlarmManager interval
 // constants--in this case, AlarmManager.INTERVAL_DAY.
+        //sets alarm to particular hour defined in military time by calender.set() and repeats daily
+        //TODO make loop to set multiple alarms
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
     }
