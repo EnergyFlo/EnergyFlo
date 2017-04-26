@@ -57,6 +57,15 @@
             android:textSize="60sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar"
+            android:layout_centerHorizontal="true"
+            android:textSize="180sp"
+            android:textColor="@android:color/holo_blue_light"/>
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"

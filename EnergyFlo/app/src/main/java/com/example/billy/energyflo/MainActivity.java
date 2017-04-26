@@ -10,9 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextClock;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
+    TextView textView;
+    Animation out;
 
 
     DrawerLayout drawer;
@@ -35,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        textView = (TextView) findViewById(R.id.ratingText);
         mDbHelper = new DBHandler(this.getApplicationContext());
         time = (TextClock) findViewById(R.id.textClock);
         ratingSelector = (SeekBar) findViewById(R.id.seekBar);
+        ratingSelector.setOnSeekBarChangeListener(yourListener);
         drawer = (DrawerLayout) findViewById(R.id.nav_view);
         //setting drawer and list for drawer content
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,9 +79,49 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        out = new AlphaAnimation(1.0f, 0.0f);
+        out.setDuration(3000);
+        out.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.setText("");
+                //mSwitcher.startAnimation(in);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
 
 
     }
+    private SeekBar.OnSeekBarChangeListener yourListener = new  SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                                      boolean fromUser) {
+            // Log the progress
+            android.util.Log.d("DEBUG", "Progress is: "+progress);
+            //set textView's text
+            textView.setText(""+progress);
+            textView.startAnimation(out);
+        }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+        public void onStopTrackingTouch(SeekBar seekBar) {}
+
+    };
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -88,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 
     /* Called whenever we call invalidateOptionsMenu() */
 //    @Override
