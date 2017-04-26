@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,8 @@ import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity
 {
-    Switch notificationSwitch;
+    Switch reminderNotificationSwitch;
+    Switch peakNotificationSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -20,12 +22,22 @@ public class SettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        notificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
+        SharedPreferences prefs = getSharedPreferences("com.example.billy.energyflo", MODE_PRIVATE);
+        boolean logReminderSwitchState = prefs.getBoolean("logReminderSwitch", false);
+        boolean peakReminderSwitchState = prefs.getBoolean("peakReminderSwitch", false);
 
-        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        reminderNotificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
+        reminderNotificationSwitch.setChecked(logReminderSwitchState);
+        peakNotificationSwitch = (Switch) findViewById(R.id.peakNotificationSwitch);
+        peakNotificationSwitch.setChecked(peakReminderSwitchState);
+
+        reminderNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
+
+                /* Save state of switch when flipped */
+                SharedPreferences.Editor editor = getSharedPreferences("com.example.billy.energyflo", MODE_PRIVATE).edit();
+                editor.putBoolean("logReminderSwitch", reminderNotificationSwitch.isChecked());
+                editor.commit();
 
                 if (isChecked) {
                     scheduleAlarm();
@@ -35,6 +47,27 @@ public class SettingsActivity extends AppCompatActivity
                 }
             }
         });
+
+
+        peakNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                /* Save state of switch when flipped */
+                SharedPreferences.Editor editor = getSharedPreferences("com.example.billy.energyflo", MODE_PRIVATE).edit();
+                editor.putBoolean("peakReminderSwitch", peakNotificationSwitch.isChecked());
+                editor.commit();
+
+                if (isChecked) {
+                    //scheduleAlarm();
+                }
+                else {
+                    // cancel alarm
+                }
+            }
+        });
+
+
+
     }
 
     public void scheduleAlarm()
