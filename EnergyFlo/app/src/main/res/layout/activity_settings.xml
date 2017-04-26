@@ -3,19 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.billy.energyflo.SettingsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="energyflo | settings"
+        app:titleTextColor="?attr/colorAccent" />
 
     <Switch
         android:id="@+id/notificationSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="NOTIFICATIONS   "
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23dp"
+        android:showText="true"
+        android:splitTrack="false"
+        android:text=""
         android:textAllCaps="false"
-        android:textOff="Off"
-        android:textOn="On"
+        android:textOff="OFF"
+        android:textOn="ON"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="149dp"
         tools:layout_editor_absoluteY="250dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="57dp"
+        android:text="energy logging reminders"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_toStartOf="@+id/notificationSwitch"
+        android:text="Turn on to enable hourly notifications between 6am and 10pm" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="60dp"
+        android:text="peak hour reminder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Switch
+        android:id="@+id/peakNotificationSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignEnd="@+id/notificationSwitch"
+        android:showText="true"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:text="Turn on to be notified 30 minutes prior to your peak energy hour"
+        android:layout_toStartOf="@+id/peakNotificationSwitch" />
 </RelativeLayout>

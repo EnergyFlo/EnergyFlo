@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity
         android.util.Log.d("alarm", String.valueOf(calendar.getTimeInMillis()));
 
         // create an Intent and set the class which will execute when Alarm triggers, here we have
-        // given AlarmReceiver in the Intent, the onRecieve() method of this class will execute when
+        // given AlarmReceiver in the Intent, the onReceive() method of this class will execute when
         // alarm triggers and
         //we will write the code to create notification inside onReceive() method pf Alarmreceiver class
         Intent intentAlarm = new Intent(this, AlarmReceiver.class);

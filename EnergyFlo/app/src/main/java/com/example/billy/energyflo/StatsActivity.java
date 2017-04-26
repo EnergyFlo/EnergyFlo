@@ -29,7 +29,7 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.statsToolbar);
         setSupportActionBar(myToolbar);
 
         mDbHelper = new DBHandler(this.getApplicationContext());
@@ -48,7 +48,7 @@ public class StatsActivity extends AppCompatActivity {
         Description des= chart.getDescription();
         des.setEnabled(false);
         Legend leg=chart.getLegend();
-        leg.setEnabled(false);
+        leg.setEnabled(true);
         chart.setDrawGridBackground(false); //no grid line on background
 
         //format X-axis
@@ -86,13 +86,13 @@ public class StatsActivity extends AppCompatActivity {
         //Initialize the line with data by passing a list of data needed to be displayed
         LineDataSet setHour= new LineDataSet(averageHourRating, " ");
         //Formatting its elements (text, dot, line, color)
-        setHour.setDrawCircles(true);
-        setHour.setLineWidth(2f);
+        setHour.setDrawCircles(false);
+        setHour.setLineWidth(3f);
         setHour.setColors(Color.rgb(102, 255, 255));
         setHour.setAxisDependency(YAxis.AxisDependency.LEFT);
         setHour.setMode(LineDataSet.Mode.CUBIC_BEZIER); //instead of straight lines, draw line in cubic form
         setHour.setCircleColor(Color.rgb(255, 255, 255));
-        setHour.setCircleRadius(5f);
+        setHour.setCircleRadius(4f);
         setHour.setDrawCircleHole(false);
         setHour.setValueTextSize(20f);
         setHour.setValueTextColor(Color.rgb(102, 255, 255));
