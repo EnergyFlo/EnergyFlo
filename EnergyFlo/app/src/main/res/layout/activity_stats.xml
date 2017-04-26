@@ -15,12 +15,13 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="energyflo"
+        app:title="energyflo | statistics"
         app:titleTextColor="?attr/colorAccent" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/statsToolbar" />
 
 </RelativeLayout>
