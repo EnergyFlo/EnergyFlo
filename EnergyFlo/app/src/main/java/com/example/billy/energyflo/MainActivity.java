@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-//    ImageView drawingImageView;
     DBHandler mDbHelper;
     TextClock time;
     SeekBar ratingSelector;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //contactdb db = new contactdb(this);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -151,12 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
         /*Determine Current Time and Parse*/
 
-        //TODO query db, check if value exits, if yes update, if no create
         CharSequence currentTimeWholeString = time.getText();
         android.util.Log.d("addItem", "currentTimeWholeString:  " + time.getText());
 
-        //TODO raise API to accommodate this function
-        //time.getFormat24Hour();
 
         CharSequence amPm = currentTimeWholeString.subSequence(6,8);
         CharSequence currentTime = currentTimeWholeString.subSequence(0,2);
@@ -185,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             // Find EnergyLog for the current hour
             Log current_log = mDbHelper.getLog(number_time);
 
-            //TODO edit log to add new params and update
+            //edit log to add new params and update
             current_log.updateLog(number_rating);
             mDbHelper.updateHour(current_log);
             android.util.Log.d("Success", "updated hour " + current_log.getHour() +" Average = "+ current_log.getAverage() + " Number of ratings = "+current_log.getNumber_of_ratings() +" Total = " + current_log.getTotal());
