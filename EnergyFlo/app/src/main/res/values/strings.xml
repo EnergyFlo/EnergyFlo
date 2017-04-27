@@ -3,4 +3,8 @@
     <string name="add_db_item">I FEEL DIS</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
+    <string name="energy_logging_reminders_setting_title">energy logging reminders</string>
+    <string name="energy_logging_reminders_setting_description">Turn on to enable hourly notifications between 6am and 10pm</string>
+    <string name="peak_hour_reminder_setting_title">peak hour reminder</string>
+    <string name="peak_hour_reminder_setting_description">Turn on to be notified 30 minutes prior to your peak energy hour</string>
 </resources>

@@ -22,15 +22,14 @@
         android:id="@+id/notificationSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView4"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="23dp"
-        android:showText="true"
         android:splitTrack="false"
+        android:switchMinWidth="55dp"
         android:text=""
         android:textAllCaps="false"
-        android:textOff="OFF"
-        android:textOn="ON"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="149dp"
         tools:layout_editor_absoluteY="250dp" />
@@ -43,7 +42,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_marginStart="13dp"
         android:layout_marginTop="57dp"
-        android:text="energy logging reminders"
+        android:text="@string/energy_logging_reminders_setting_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
@@ -53,7 +52,7 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_toStartOf="@+id/notificationSwitch"
-        android:text="Turn on to enable hourly notifications between 6am and 10pm" />
+        android:text="@string/energy_logging_reminders_setting_description" />
 
     <TextView
         android:id="@+id/textView5"
@@ -62,7 +61,7 @@
         android:layout_alignStart="@+id/textView4"
         android:layout_below="@+id/textView4"
         android:layout_marginTop="60dp"
-        android:text="peak hour reminder"
+        android:text="@string/peak_hour_reminder_setting_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Switch
@@ -71,9 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView5"
         android:layout_alignEnd="@+id/notificationSwitch"
-        android:showText="true"
-        android:textOff="OFF"
-        android:textOn="ON" />
+        android:switchMinWidth="55dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -81,6 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView5"
         android:layout_below="@+id/textView5"
-        android:text="Turn on to be notified 30 minutes prior to your peak energy hour"
+        android:text="@string/peak_hour_reminder_setting_description"
         android:layout_toStartOf="@+id/peakNotificationSwitch" />
 </RelativeLayout>
