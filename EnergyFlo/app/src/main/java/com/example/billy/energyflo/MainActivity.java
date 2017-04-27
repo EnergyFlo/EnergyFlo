@@ -1,3 +1,10 @@
+/*
+* GROUP 16
+* WILLIAM PIERCE    2643343
+* NAM DO            2594704
+* DILLON PURVIS     2532954
+* */
+
 package com.example.billy.energyflo;
 
 import android.content.Intent;
