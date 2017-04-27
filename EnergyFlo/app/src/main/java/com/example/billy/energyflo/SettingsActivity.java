@@ -26,11 +26,13 @@ public class SettingsActivity extends AppCompatActivity
         boolean logReminderSwitchState = prefs.getBoolean("logReminderSwitch", false);
         boolean peakReminderSwitchState = prefs.getBoolean("peakReminderSwitch", false);
 
+        /* On create, restore user preferences to switches*/
         reminderNotificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
         reminderNotificationSwitch.setChecked(logReminderSwitchState);
         peakNotificationSwitch = (Switch) findViewById(R.id.peakNotificationSwitch);
         peakNotificationSwitch.setChecked(peakReminderSwitchState);
 
+        /* Listen for changes to switch states */
         reminderNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -58,7 +60,7 @@ public class SettingsActivity extends AppCompatActivity
                 editor.commit();
 
                 if (isChecked) {
-                    //scheduleAlarm();
+                    schedulePeakAlarm();
                 }
                 else {
                     // cancel alarm
@@ -72,8 +74,7 @@ public class SettingsActivity extends AppCompatActivity
 
     public void scheduleAlarm()
     {
-        DBHandler h = new DBHandler(this);
-        h.findPeakHour();
+
         // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
         // we fetch  the current time in milliseconds and added 1 day time
         // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
@@ -90,6 +91,7 @@ public class SettingsActivity extends AppCompatActivity
         // alarm triggers and
         //we will write the code to create notification inside onReceive() method pf Alarmreceiver class
         Intent intentAlarm = new Intent(this, AlarmReceiver.class);
+        intentAlarm.putExtra("alarmType", "RECORDING_REMINDER");
 
         // create the object
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -105,5 +107,29 @@ public class SettingsActivity extends AppCompatActivity
         //TODO make loop to set multiple alarms
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+    }
+
+
+
+    public void schedulePeakAlarm() {
+        DBHandler dbHandler = new DBHandler(this);
+        int peakHour = dbHandler.findPeakHour();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.setTimeInMillis(System.currentTimeMillis() + 1801000L);  // for immediate testing of notification
+        calendar.set(Calendar.HOUR_OF_DAY, peakHour);
+        android.util.Log.d("Settings Activity", "set alarm for peak hour: " + String.valueOf(calendar.getTimeInMillis()));
+
+        Intent intentPeakAlarm = new Intent(this, AlarmReceiver.class);
+        intentPeakAlarm.putExtra("alarmType", "PEAK_REMINDER");
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // subtract 1800000 ms in order to make alarm 30 minutes before peak hour
+        //TODO add a scheduled daily task to update alarm when peak hour changes
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 1800000L,
+                AlarmManager.INTERVAL_DAY,
+                PendingIntent.getBroadcast(this, 2, intentPeakAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 }

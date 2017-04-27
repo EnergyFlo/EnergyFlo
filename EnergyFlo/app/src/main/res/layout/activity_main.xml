@@ -63,8 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/seekBar"
             android:layout_centerHorizontal="true"
-            android:textSize="180sp"
-            android:textColor="@android:color/holo_blue_light"/>
+            android:textColor="?attr/colorAccent"
+            android:textSize="180sp" />
 
         <Button
             android:id="@+id/button"

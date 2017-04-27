@@ -6,36 +6,63 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-/**
- * Created by Dillon on 4/25/2017.
- */
 
 public class AlarmReceiver extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        // here you can start an activity or service depending on your need
+        android.util.Log.d("AlarmReceiver", "received alarm broadcast");
 
-        Notification.Builder myBuilder = new Notification.Builder(context)
-                .setContentTitle("Reminder")
-                .setContentText("Time to record your energy level!")
-                .setSmallIcon(R.drawable.ic_menu_send)
-                .setAutoCancel(true);
+        String alarmType = intent.getStringExtra("alarmType");
+        Log.d("AlarmReceiver", "alarmType: " + alarmType);
 
-        Intent myIntent = new Intent(context, MainActivity.class);
+        if (alarmType.equals("RECORDING_REMINDER")) {
 
-        PendingIntent myPendingIntent = PendingIntent.getActivity(context, 0 , myIntent, 0);
-        myBuilder.setContentIntent(myPendingIntent);
+            // here you can start an activity or service depending on your need
 
-        Notification myNotification = myBuilder.build();
-        NotificationManager myNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        myNotificationManager.notify(1234, myNotification);
+            Notification.Builder myBuilder = new Notification.Builder(context)
+                    .setContentTitle("Reminder")
+                    .setContentText("Time to record your energy level!")
+                    .setSmallIcon(R.mipmap.ic_launcher_textver)
+                    .setAutoCancel(true);
 
+            Intent myIntent = new Intent(context, MainActivity.class);
+
+            PendingIntent myPendingIntent = PendingIntent.getActivity(context, 0 , myIntent, 0);
+            myBuilder.setContentIntent(myPendingIntent);
+
+            Notification myNotification = myBuilder.build();
+            NotificationManager myNotificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            myNotificationManager.notify(1234, myNotification);
 
 //        rescheduleAlarm(context);
+
+        }
+
+
+        if (alarmType.equals("PEAK_REMINDER")) {
+            Notification.Builder myBuilder = new Notification.Builder(context)
+                    .setContentTitle("Peak energy in 30 minutes")
+                    .setContentText("Plan to work on something important")
+                    .setSmallIcon(R.mipmap.ic_launcher_textver)
+                    .setAutoCancel(true);
+
+            Intent myIntent = new Intent(context, MainActivity.class);
+
+            PendingIntent myPendingIntent = PendingIntent.getActivity(context, 0 , myIntent, 0);
+            myBuilder.setContentIntent(myPendingIntent);
+
+            Notification myNotification = myBuilder.build();
+            NotificationManager myNotificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            myNotificationManager.notify(4567, myNotification);
+        }
+
+
     }
 
 

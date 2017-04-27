@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
-    TextView textView;
+    TextView ratingTextView;
     Animation out;
 
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        textView = (TextView) findViewById(R.id.ratingText);
+        ratingTextView = (TextView) findViewById(R.id.ratingText);
         mDbHelper = new DBHandler(this.getApplicationContext());
         time = (TextClock) findViewById(R.id.textClock);
         ratingSelector = (SeekBar) findViewById(R.id.seekBar);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                textView.setText("");
+                ratingTextView.setText("");
                 //mSwitcher.startAnimation(in);
 
             }
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
                                       boolean fromUser) {
             // Log the progress
             android.util.Log.d("DEBUG", "Progress is: "+progress);
-            //set textView's text
-            textView.setText(""+progress);
-            textView.startAnimation(out);
+            //set ratingTextView's text
+            ratingTextView.setText(""+progress);
+            ratingTextView.startAnimation(out);
         }
 
         public void onStartTrackingTouch(SeekBar seekBar) {}
