@@ -94,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY,
-                    PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+                    PendingIntent.getBroadcast(this,reminderHour,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
 
             android.util.Log.d("SettingsActivity",
                     "Energy logging reminder #" + reminderHour
@@ -107,10 +107,16 @@ public class SettingsActivity extends AppCompatActivity
     {
         /* Cancels hourly alarms between 6am and 10pm */
         Intent intentAlarm = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        alarmManager.cancel(pendingIntent);
+        for (int reminderHour = 6; reminderHour < 23; reminderHour++) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                    reminderHour,
+                    intentAlarm,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.cancel(pendingIntent);
+        }
+
 
         Log.d("SettingsActivity", "Cancelled energy logging alarms");
     }
