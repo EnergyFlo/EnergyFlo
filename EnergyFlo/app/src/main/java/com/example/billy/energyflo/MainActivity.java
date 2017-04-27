@@ -1,10 +1,7 @@
 package com.example.billy.energyflo;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -22,14 +18,10 @@ public class MainActivity extends AppCompatActivity {
     DBHandler mDbHelper;
     TextClock time;
     SeekBar ratingSelector;
-    DrawerLayout mDrawerLayout;
-    ListView mDrawerList;
-    ActionBarDrawerToggle mDrawerToggle;
     TextView ratingTextView;
     Animation out;
 
 
-    DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,39 +35,10 @@ public class MainActivity extends AppCompatActivity {
         time = (TextClock) findViewById(R.id.textClock);
         ratingSelector = (SeekBar) findViewById(R.id.seekBar);
         ratingSelector.setOnSeekBarChangeListener(yourListener);
-        drawer = (DrawerLayout) findViewById(R.id.nav_view);
-        //setting drawer and list for drawer content
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
-        //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-        //        R.layout.drawer_list_item, mPlanetTitles));
-        // Set the list's click listener
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-//                getSupportActionBar().setTitle("energyflo");
-                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-//                getSupportActionBar().setTitle("energyflo");
-                //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
 
         out = new AlphaAnimation(1.0f, 0.0f);
         out.setDuration(3000);
@@ -99,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+
     private SeekBar.OnSeekBarChangeListener yourListener = new  SeekBar.OnSeekBarChangeListener() {
 
         @Override
@@ -121,31 +84,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-
-    /* Called whenever we call invalidateOptionsMenu() */
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        // If the nav drawer is open, hide action items related to the content view
-//        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLayout);
-//        menu.findItem(R.id.drawer_layout).setVisible(!drawerOpen);
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-
 
     public void addItem(View view){
+
+        //TODO give user feedback that their button press was recorded
 
         /*Determine Current Time and Parse*/
 
@@ -185,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
             mDbHelper.updateHour(current_log);
             android.util.Log.d("Success", "updated hour " + current_log.getHour() +" Average = "+ current_log.getAverage() + " Number of ratings = "+current_log.getNumber_of_ratings() +" Total = " + current_log.getTotal());
 
+            ratingTextView.setText("✓");
+            ratingTextView.startAnimation(out);
         }
         catch(Exception e){
             android.util.Log.d("Exception", "Creating new EnergyLog for hour: " + number_time);
@@ -210,20 +154,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentToViewStats);
             return true;
         }
-//        if (item.getItemId() == R.id.drawer_menu) {
-//            //mDrawerLayout.openDrawer(Gravity.LEFT);
-//            return true;
-//
-//        }
         if (item.getItemId() == R.id.gotoSettings) {
             Intent intentToViewSettings = new Intent(this, SettingsActivity.class);
             startActivity(intentToViewSettings);
             return true;
 
         }
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
